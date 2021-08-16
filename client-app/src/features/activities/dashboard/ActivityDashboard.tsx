@@ -15,7 +15,7 @@ export default observer(function ActivityDashboard() {
     if (activityResgistry.size <= 1) loadActivities();
   }, [activityResgistry.size, loadActivities]) 
 
-  if(activityStore.loadingInitial) return <LoadingComponent content="Loading app..." />
+  if(activityStore.loadingInitial) return <LoadingComponent content="Loading activities..." />
 
   return (
     <Grid>
