@@ -8,26 +8,30 @@ import { useStore } from "../../app/stores/store";
 import ProfileConten from "./ProfileContent";
 import ProfileHeader from "./ProfileHeader";
 
-export default observer(function ProfilePage(){
-    const {username} = useParams<{username: string}>();
-    const {profileStore} = useStore();
-    const {loadingProfile, loadProfile, profile} = profileStore;
+export default observer(function ProfilePage() {
+  const { username } = useParams<{ username: string }>();
+  const { profileStore } = useStore();
+  const { loadingProfile, loadProfile, profile, setActiveTab } = profileStore;
 
-    useEffect(() => {
-        loadProfile(username);
-    }, [loadProfile, username])
+  useEffect(() => {
+    loadProfile(username);
+    return () => {
+      setActiveTab(0);
+    };
+  }, [loadProfile, username, setActiveTab]);
 
-    if(loadingProfile) return <LoadingComponent content='Loading profile...' />
+  if (loadingProfile) return <LoadingComponent content="Loading profile..." />;
 
-    return(
-        <Grid>
-            <Grid.Column width={16}>
-                {profile &&
-                <>
-                    <ProfileHeader profile={profile}/>
-                    <ProfileConten profile={profile}/>
-                </>} 
-            </Grid.Column>
-        </Grid>
-    )
-})
+  return (
+    <Grid>
+      <Grid.Column width={16}>
+        {profile && (
+          <>
+            <ProfileHeader profile={profile} />
+            <ProfileConten profile={profile} />
+          </>
+        )}
+      </Grid.Column>
+    </Grid>
+  );
+});

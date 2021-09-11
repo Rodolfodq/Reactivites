@@ -6,16 +6,16 @@ import ActivityList from "./ActivityList";
 import LoadingComponent from "../../../app/layout/LoadingComponents";
 import ActivityFilters from "./ActivityFilters";
 
-
 export default observer(function ActivityDashboard() {
-  const {activityStore} = useStore();
-  const {loadActivities, activityResgistry} = activityStore;
+  const { activityStore } = useStore();
+  const { loadActivities, activityResgistry } = activityStore;
 
   useEffect(() => {
     if (activityResgistry.size <= 1) loadActivities();
-  }, [activityResgistry.size, loadActivities]) 
+  }, [activityResgistry.size, loadActivities]);
 
-  if(activityStore.loadingInitial) return <LoadingComponent content="Loading activities..." />
+  if (activityStore.loadingInitial)
+    return <LoadingComponent content="Loading activities..." />;
 
   return (
     <Grid>
@@ -27,4 +27,4 @@ export default observer(function ActivityDashboard() {
       </Grid.Column>
     </Grid>
   );
-})
+});
